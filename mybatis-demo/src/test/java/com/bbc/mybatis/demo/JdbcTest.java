@@ -222,9 +222,6 @@ public class JdbcTest {
         SqlSessionFactory factory = new SqlSessionFactoryBuilder().build(inputStream);
         SqlSession session = factory.openSession();
         User user = session.selectOne("test.findUserById", 1);
-<<<<<<< HEAD
-=======
         System.out.println(user.toString());
->>>>>>> 修改结构目录
     }
 }
