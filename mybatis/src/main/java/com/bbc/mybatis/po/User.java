@@ -1,6 +1,7 @@
 package com.bbc.mybatis.po;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Integer id;
@@ -12,6 +13,8 @@ public class User {
     private String sex;
 
     private String address;
+
+    private List<Order> orders;
 
     public User(Integer id, String username, Date birthday, String sex, String address) {
         this.id = id;
@@ -65,6 +68,14 @@ public class User {
         this.address = address == null ? null : address.trim();
     }
 
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -73,6 +84,7 @@ public class User {
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
                 ", address='" + address + '\'' +
+                ", orders=" + orders +
                 '}';
     }
 }

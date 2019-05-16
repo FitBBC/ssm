@@ -41,6 +41,20 @@
                 </dependencies>
             </plugin>
         </plugins>
+        <!-- 添加resources标签,解决idea不加载java目录的xml文件问题,
+        但是会影响mybatis-generator的properties文件读取路径,导致找不到properties文件,
+        生成sql映射文件时需先注释这部分
+        -->
+        <resources>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.xml</include>
+                </includes>
+                <!--默认是true-->
+                <!--<filtering>true</filtering>-->
+            </resource>
+        </resources>
     </build>
         <dependencies>
             <dependency>

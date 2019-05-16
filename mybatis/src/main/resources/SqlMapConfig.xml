@@ -1,15 +1,40 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <properties resource="datasource.properties"></properties>
-    <!-- 和spring整合后 environments将废除 -->
+    <properties resource="jdbc.properties"></properties>
+    <settings>
+        <!--全局开启或关闭二级缓存,缓存域为mapper映射文件, 默认ture-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--懒加载开关, 默认false-->
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+    <!-- po 类别名设置-->
+    <typeAliases>
+        <package name="com.bbc.mybatis.po"/>
+    </typeAliases>
+    <!-- 自定义类型处理器 -->
+    <typeHandlers>
+        <!-- 枚举处理器,数据库存储整形值代码-->
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="java.math.RoundingMode"/>
+        <typeHandler handler="com.bbc.mybatis.handler.ExampleTypeHandler"/>
+        <package name="com.bbc.mybatis.handler"></package>
+    </typeHandlers>
+    <!--自定义插件-->
+    <plugins>
+        <!--<plugin interceptor="com.bbc.mybatis.plugin.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>-->
+
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
     <environments default="development">
         <environment id="development">
-            <!-- 使用JDBC事务管理，事务控制由mybatis -->
             <transactionManager type="JDBC"/>
-            <!-- 数据库连接池，由mybatis -->
             <dataSource type="POOLED">
                 <property name="driver" value="${db.driverClassName}"/>
                 <property name="url" value="${db.url}"/>
@@ -18,8 +43,9 @@
             </dataSource>
         </environment>
     </environments>
-    
     <mappers>
+       <!-- <mapper resource="com/bbc/mybatis/mappers/UserMapper.xml"/>-->
+       <!-- <mapper class="com.bbc.mybatis.mappers.UserMapper"></mapper>-->
         <package name="com.bbc.mybatis.mappers"/>
     </mappers>
 </configuration>
