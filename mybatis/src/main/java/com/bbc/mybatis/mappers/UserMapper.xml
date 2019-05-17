@@ -1,100 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bbc.mybatis.mappers.UserMapper">
-  <resultMap id="BaseResultMap" type="com.bbc.mybatis.po.User">
+
+  <!-- autoMapping 属性控制是否开启自动映射, 自动映射和自定义的result可以共用-->
+  <resultMap id="BaseResultMap" type="com.bbc.mybatis.po.User" autoMapping="true">
     <!--用于注入结果到构造方法-->
-    <constructor>
+    <!--<constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="birthday" javaType="java.util.Date" jdbcType="DATE" />
       <arg column="sex" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
-    </constructor>
-    <collection property="orders" ofType="Order">
-      <id column="orderid" property="id"></id>
-      <result column="ordername" property="name"></result>
+    </constructor>-->
+    <id column="uid" property="uid"></id>
+    <result column="username" property="username"></result>
+    <result column="birthday" property="birthday"></result>
+    <result column="sex" property="sex"></result>
+    <result column="address" property="address"></result>
+    <collection property="orders" ofType="com.bbc.mybatis.po.Order" column="uid" select="selectOrderByUserId">
+      <id column="oid" property="oid"></id>
+      <result column="name" property="name"></result>
     </collection>
   </resultMap>
-  <sql id="Base_Column_List">
-    id, username, birthday, sex, address
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    u.id, u.username, u.birthday, u.sex, u.address, o.id as orderid, o.name as ordername
-    from `user` u left outer join `order` o on u.id = o.user_id
-    where u.id = #{id,jdbcType=INTEGER}
+    <resultMap id="BaseResultMap2" type="com.bbc.mybatis.po.User" autoMapping="true">
+        <!--通过left关联查询一对多集合时不能全部自动映射-->
+        <id column="uid" property="uid"></id>
+        <collection property="orders" ofType="com.bbc.mybatis.po.Order">
+            <result column="name" property="name"></result>
+        </collection>
+    </resultMap>
+  <select id="selectByPrimaryKeyJoinOrder" parameterType="java.lang.Integer" resultMap="BaseResultMap2">
+    select
+    u.uid, u.username, u.birthday, u.sex, u.address, o.oid, o.name
+    from `user` u left outer join `order` o on u.uid = o.user_id
+    where u.uid = #{uid,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.bbc.mybatis.po.User">
-    insert into user (id, username, birthday, 
-      sex, address)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
-      #{sex,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR})
-  </insert>
-  <insert id="insertSelective" parameterType="com.bbc.mybatis.po.User">
-    insert into user
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="username != null">
-        username,
-      </if>
-      <if test="birthday != null">
-        birthday,
-      </if>
-      <if test="sex != null">
-        sex,
-      </if>
-      <if test="address != null">
-        address,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="username != null">
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        #{birthday,jdbcType=DATE},
-      </if>
-      <if test="sex != null">
-        #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        #{address,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.bbc.mybatis.po.User">
-    update user
-    <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="birthday != null">
-        birthday = #{birthday,jdbcType=DATE},
-      </if>
-      <if test="sex != null">
-        sex = #{sex,jdbcType=VARCHAR},
-      </if>
-      <if test="address != null">
-        address = #{address,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.bbc.mybatis.po.User">
-    update user
-    set username = #{username,jdbcType=VARCHAR},
-      birthday = #{birthday,jdbcType=DATE},
-      sex = #{sex,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
+ <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select
+    u.uid, u.username, u.birthday, u.sex, u.address
+    from `user` u
+    where u.uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <select id="selectOrderByUserId" resultType="Order">
+    select
+    oid, `name`
+    from `order`
+    where user_id = #{uid}
+  </select>
+
+  <select id="selectList" parameterType="java.util.List" resultMap="BaseResultMap">
+    select
+      uid, username, birthday, sex, address
+    from `user`
+    <where>
+      <foreach collection="list" item="value" open="uid in (" close=")" separator="," index="index">
+        #{value}
+      </foreach>
+    </where>
+  </select>
+
+    <insert id="insertUser" parameterType="User">
+        <selectKey resultType="java.lang.Integer" keyProperty="uid" order="AFTER">
+            select LAST_INSERT_ID() AS uid
+        </selectKey>
+        insert into `user` (username, birthday, sex, address) values (#{username}, #{birthday},#{sex},#{address})
+    </insert>
 </mapper>

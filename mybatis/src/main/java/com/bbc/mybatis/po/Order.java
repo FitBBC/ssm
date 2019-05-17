@@ -3,14 +3,14 @@ package com.bbc.mybatis.po;
 import java.io.Serializable;
 
 public class Order implements Serializable {
-    private Integer id;
+    private Integer oid;
 
     private String name;
 
     private Integer userId;
 
-    public Order(Integer id, String name, Integer userId) {
-        this.id = id;
+    public Order(Integer oid, String name, Integer userId) {
+        this.oid = oid;
         this.name = name;
         this.userId = userId;
     }
@@ -19,12 +19,12 @@ public class Order implements Serializable {
         super();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getOid() {
+        return oid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setOid(Integer oid) {
+        this.oid = oid;
     }
 
     public String getName() {
