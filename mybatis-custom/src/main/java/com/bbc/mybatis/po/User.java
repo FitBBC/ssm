@@ -1,4 +1,4 @@
-package com.bbc.mybatis.demo.po;
+package com.bbc.mybatis.po;
 
 import java.util.Date;
 

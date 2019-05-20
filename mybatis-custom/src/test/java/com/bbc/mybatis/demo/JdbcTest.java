@@ -1,6 +1,6 @@
 package com.bbc.mybatis.demo;
 
-import com.bbc.mybatis.demo.po.User;
+import com.bbc.mybatis.po.User;
 import com.bbc.mybatis.framework.Configuration;
 import com.bbc.mybatis.framework.MappedStatement;
 import com.bbc.mybatis.framework.builder.XmlConfigBuilder;

@@ -1,25 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
-    <!-- mybatis 数据源环境配置 -->
-    <environments default="dev">
-        <environment id="dev">
-            <!-- 配置数据源信息 -->
-            <dataSource type="DBCP">
-                <property name="driver" value="com.mysql.jdbc.Driver"></property>
-                <property name="url"
-                          value="jdbc:mysql://localhost:3306/ssm"></property>
-                <property name="username" value="root"></property>
-                <property name="password" value="123asd!@#QWE"></property>
+    <properties resource="jdbc.properties"></properties>
+    <settings>
+        <!--全局开启或关闭二级缓存,缓存域为mapper映射文件, 默认ture-->
+        <setting name="cacheEnabled" value="true"/>
+        <!--懒加载开关, 默认false-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--侵入式延迟加载开关-->
+        <!--3.4.1版本之前默认是true，之后默认是false-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+        <!-- 开启数据库字段自动映射属性值驼峰配置-->
+        <setting name="mapUnderscoreToCamelCase" value="false"/>
+        <!-- 自动映射级别,NONE, PARTIAL, FULL,none不自动映射,PARTIAL不映射内联属性,FULL全映射-->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- 本地缓存域设置,STATEMENT | SESSION-->
+        <setting name="localCacheScope" value="SESSION"/>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <!-- po 类别名设置-->
+    <typeAliases>
+        <package name="com.bbc.mybatis.po"/>
+    </typeAliases>
+    <!-- 自定义类型处理器 -->
+    <typeHandlers>
+        <!-- 枚举处理器,数据库存储整形值代码-->
+        <typeHandler handler="org.apache.ibatis.type.EnumOrdinalTypeHandler" javaType="java.math.RoundingMode"/>
+        <typeHandler handler="com.bbc.mybatis.handler.ExampleTypeHandler"/>
+        <package name="com.bbc.mybatis.handler"></package>
+    </typeHandlers>
+    <!--自定义插件-->
+    <plugins>
+        <!--<plugin interceptor="com.bbc.mybatis.plugin.ExamplePlugin">
+            <property name="someProperty" value="100"/>
+        </plugin>-->
+
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <!-- 设置数据库类型 Oracle,Mysql,MariaDB,SQLite,Hsqldb,PostgreSQL六种数据库-->
+            <property name="helperDialect" value="mysql"/>
+        </plugin>
+    </plugins>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <property name="driver" value="${db.driverClassName}"/>
+                <property name="url" value="${db.url}"/>
+                <property name="username" value="${db.username}"/>
+                <property name="password" value="${db.password}"/>
             </dataSource>
         </environment>
     </environments>
-
-    <!-- 映射文件加载 -->
     <mappers>
-        <!-- resource指定映射文件的类路径 -->
-        <mapper resource="mapper/UserMapper.xml"></mapper>
-        <mapper resource="mapper/UserMapper.xml"></mapper>
-        <mapper resource="mapper/UserMapper.xml"></mapper>
-        <mapper resource="mapper/UserMapper.xml"></mapper>
-        <mapper resource="mapper/UserMapper.xml"></mapper>
+       <!-- <mapper resource="com/bbc/mybatis/mappers/UserMapper.xml"/>-->
+       <!-- <mapper class="com.bbc.mybatis.mappers.UserMapper"></mapper>-->
+        <package name="com.bbc.mybatis.mappers"/>
     </mappers>
 </configuration>
