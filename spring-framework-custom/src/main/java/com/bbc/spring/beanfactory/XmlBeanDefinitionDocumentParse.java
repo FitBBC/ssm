@@ -56,6 +56,8 @@ public class XmlBeanDefinitionDocumentParse {
         PropertyValue propertyValue = null;
         if (value != null){
             TypedStringValue typedStringValue = new TypedStringValue(value);
+            Class<?> typeClass = ReflectUtils.getTypeByFiledName(beanDefinition.getBeanClassName(), name);
+            typedStringValue.setTargetType(typeClass);
             propertyValue = new PropertyValue(name, typedStringValue);
             beanDefinition.addPropertyValue(propertyValue);
         }else if (ref != null){

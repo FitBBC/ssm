@@ -20,7 +20,8 @@ public class ClassPathResource implements Resource {
     }
 
     public InputStream getInputStream() {
-        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(location);
+        String resource = location.substring(10);
+        InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
         return inputStream;
     }
 }
