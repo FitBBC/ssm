@@ -5,8 +5,8 @@ package com.bbc.spring.beanfactory;
  * @date 2019/05/20
  */
 public class TypedStringValue {
-    private String value;
-    private Class<?> targetType;
+    private String value; //value值
+    private Class<?> targetType;// 目标类型
 
     public TypedStringValue(String value) {
         this.value = value;

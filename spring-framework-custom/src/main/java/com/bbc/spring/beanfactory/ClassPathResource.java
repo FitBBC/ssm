@@ -20,6 +20,7 @@ public class ClassPathResource implements Resource {
     }
 
     public InputStream getInputStream() {
+        // 获取xml文件流
         String resource = location.substring(10);
         InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream(resource);
         return inputStream;

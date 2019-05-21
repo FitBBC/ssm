@@ -11,9 +11,10 @@ import java.io.InputStream;
 public class XmlBeanDefinitionReader {
 
     public void loadBeanDefinition(DefaultListableBeanFactory defaultListableBeanFactory, InputStream inputStream) {
+        // 获取document
         DocumentReader documentReader = new DocumentReader();
         Document document = documentReader.createDocument(inputStream);
-
+        //解析document,加载beanDefinition
         XmlBeanDefinitionDocumentParse xmlBeanDefinitionDocumentParse = new XmlBeanDefinitionDocumentParse();
         xmlBeanDefinitionDocumentParse.loadBeanDefinition(defaultListableBeanFactory, document);
 

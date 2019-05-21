@@ -7,11 +7,11 @@ package com.bbc.spring.beanfactory;
 public class PropertyValue {
 
     private String name;
-    private Object vlaue;
+    private Object value;
 
-    public PropertyValue(String name, Object vlaue) {
+    public PropertyValue(String name, Object value) {
         this.name = name;
-        this.vlaue = vlaue;
+        this.value = value;
     }
 
     public String getName() {
@@ -22,11 +22,11 @@ public class PropertyValue {
         this.name = name;
     }
 
-    public Object getVlaue() {
-        return vlaue;
+    public Object getValue() {
+        return value;
     }
 
-    public void setVlaue(Object vlaue) {
-        this.vlaue = vlaue;
+    public void setValue(Object value) {
+        this.value = value;
     }
 }

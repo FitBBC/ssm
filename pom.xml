@@ -15,6 +15,7 @@
         <module>spring-framework-custom</module>
         <module>spring-custom</module>
         <module>spring-demo</module>
+        <module>design-pattern</module>
     </modules>
 
     <!-- 添加dependencyManagement标签子module不会继承parent的dependencies -->

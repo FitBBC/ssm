@@ -13,7 +13,7 @@ public class SpringTest {
 
     @Test
     public void test(){
-        String location = "classpath:Spring";
+        String location = "classpath:Spring.xml";
         BeanFactory beanFactory = new DefaultListableBeanFactory(location);
         Student student = (Student) beanFactory.getBean("student");
         System.out.println(student.toString());
