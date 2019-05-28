@@ -16,6 +16,9 @@
         <module>spring-custom</module>
         <module>spring-demo</module>
         <module>design-pattern</module>
+        <module>springmvc-demo</module>
+        <module>ssm-demo</module>
+        <module>mybatis-generator</module>
     </modules>
 
     <build>
