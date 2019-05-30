@@ -1,7 +1,7 @@
 package com.bbc.spring;
 
-import com.bbc.spring.beanfactory.BeanFactory;
-import com.bbc.spring.beanfactory.DefaultListableBeanFactory;
+import com.bbc.spring.framework.BeanFactory;
+import com.bbc.spring.framework.DefaultListableBeanFactory;
 import com.bbc.spring.po.Student;
 import org.junit.Test;
 

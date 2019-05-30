@@ -1,0 +1,12 @@
+<beans>
+    <bean name="/UserDelete" class="com.bbc.springmvc.handler.UserDeleteHandler"></bean>
+    <!--处理器适配器-->
+    <bean class="com.bbc.springmvc.framework.adapter.HttpRequestHandlerAdapter"></bean>
+    <bean class="com.bbc.springmvc.framework.adapter.RequestMappingHandlerAdapter"></bean>
+    <!--处理器映射器-->
+    <bean class="com.bbc.springmvc.framework.handlermapping.SimpleHandlerMapping" init-method="init"></bean>
+    <bean class="com.bbc.springmvc.framework.handlermapping.RequestMappingHandlerMapping" init-method="init"></bean>
+
+
+    <component-scan package="com.bbc.springmvc.controller" />
+</beans>

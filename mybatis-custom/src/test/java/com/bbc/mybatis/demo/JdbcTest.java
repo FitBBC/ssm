@@ -43,7 +43,7 @@ public class JdbcTest {
             resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()){
-                System.out.println(resultSet.getString("id") + " " + resultSet.getString("username"));
+                System.out.println(resultSet.getString("uid") + " " + resultSet.getString("username"));
             }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

@@ -74,8 +74,8 @@
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>3.1.0</version>
             <!-- 添加域,打包时不会吧servlet-api打包进去. -->
             <scope>provided</scope>
         </dependency>

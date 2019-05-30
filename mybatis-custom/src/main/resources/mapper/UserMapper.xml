@@ -2,6 +2,6 @@
     <!-- select标签，封装了SQL语句信息、入参类型、结果映射类型 -->
     <select id="findUserById" parameterType="java.lang.Integer"
             resultType="com.bbc.mybatis.po.User" statementType="prepared">
-        SELECT * FROM user WHERE id = #{id}
+        SELECT * FROM user WHERE uid = #{id}
     </select>
 </mapper>

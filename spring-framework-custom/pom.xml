@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>spring-framework-custom</artifactId>
-
+    <packaging>jar</packaging>
     <dependencies>
         <!-- DOM4J依赖 -->
         <dependency>

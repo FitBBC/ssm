@@ -9,18 +9,18 @@ import java.util.Date;
  * Time: 15:54
  */
 public class User {
-    private int id;
+    private Long uid;
     private String username;
     private Date birthday;
     private String sex;
     private String address;
 
-    public int getId() {
-        return id;
+    public Long getUid() {
+        return uid;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUid(Long uid) {
+        this.uid = uid;
     }
 
     public String getUsername() {
@@ -58,7 +58,7 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "id=" + id +
+                "uid=" + uid +
                 ", username='" + username + '\'' +
                 ", birthday=" + birthday +
                 ", sex='" + sex + '\'' +
